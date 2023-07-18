@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    protected $students;
-
-    public function __construct()
+    protected function studentData()
     {
-        $this->students = [
+        $students = [
             [
                 'id' => 1,
                 'name' => 'Student 01'
@@ -25,19 +23,23 @@ class StudentController extends Controller
                 'name' => 'Student 03'
             ],
         ];
+
+        return $students;
     }
+
     public function index()
     {
         return view('students.index', [
-            'students' => $this->students,
+            'students' => $this->studentData(),
         ]);
     }
 
     public function show($id)
     {
         $studentInfo = null;
+        $students = $this->studentData();
 
-        foreach($this->students as $student) {
+        foreach($students as $student) {
             if($student['id'] == $id) {
                 $studentInfo = $student;
                 break;

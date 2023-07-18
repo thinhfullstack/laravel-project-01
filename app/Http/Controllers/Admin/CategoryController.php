@@ -9,6 +9,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        echo __METHOD__;
+        return __METHOD__;
     }
 }
