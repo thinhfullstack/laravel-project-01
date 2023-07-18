@@ -9,7 +9,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        return "Customer Page";
+        return view('admin.customers.index');
     }
 
     public function update()

@@ -9,6 +9,6 @@ class SettingController extends Controller
 {
     public function index()
     {
-        return "Setting Page";
+        return view('admin.setting.index');
     }
 }
