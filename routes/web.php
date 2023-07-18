@@ -25,7 +25,15 @@ Route::get('students', [StudentController::class, 'index'])->name('students.inde
 Route::get('students/{id}', [StudentController::class, 'show'])->name('students.show');
 
 Route::prefix('admin')->group(function() {
-    Route::get('user', [UserController::class, 'index']);
-    Route::get('category', [CategoryController::class, 'index']);
+    Route::get('user', [UserController::class, 'index'])
+        ->middleware('checkLogic')
+        ->name('user.index');
+    Route::get('category', [CategoryController::class, 'index'])
+        ->middleware('verified.admin')
+        ->name('category.index');
     Route::get('product', [ProductController::class, 'index']);
 });
+
+Route::get('login', function() {
+    return "login Page";
+})->name('login');
