@@ -9,6 +9,6 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return __METHOD__;
+        return "Product Page";
     }
 }
