@@ -11,4 +11,11 @@ class OrderController extends Controller
     {
         return view('layouts.admin.orders.index');
     }
+
+    public function create()
+    {
+        return view('layouts.admin.orders.create', [
+            'title' => 'Create Order',
+        ]);
+    }
 }

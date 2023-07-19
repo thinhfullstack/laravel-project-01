@@ -1,8 +1,15 @@
 @extends('layouts.admin')
-@section('pageTitle', 'Category')
+@section('pageTitle', 'Admin Category')
+@push('buttons-css')
+    <link rel="stylesheet" href="{{ asset('assets/css/buttons-css.css') }}">
+@endpush
 @section('content')
     <div class="row">
-        <a href="{{ route('admin.category.create') }}" style="text-align: end">Create</a>
+        <a href="{{ route('admin.category.create') }}" class="btn-button-text">
+            <button class="btn-button">
+                <i class="fe fe-plus"></i>
+            </button>
+        </a>
         <div class="col-md-12 d-flex">
             <div class="card card-table flex-fill">
                 <div class="card-header">
@@ -42,6 +49,9 @@
                                         <div class="actions">
                                             <a href="#" class="btn btn-sm bg-success-light me-2">
                                                 <i class="fe fe-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm bg-success-light me-2">
+                                                <i class="fe fe-edit"></i>
                                             </a>
                                             <a href="#" class="btn btn-sm bg-danger-light">
                                                 <i class="fe fe-close"></i>

@@ -14,6 +14,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('layouts.admin.categories.create');
+        return view('layouts.admin.categories.create', [
+            'title' => 'Create Category',
+        ]);
     }
 }

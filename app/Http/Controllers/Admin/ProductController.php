@@ -11,4 +11,11 @@ class ProductController extends Controller
     {
         return view('layouts.admin.products.index');
     }
+
+    public function create()
+    {
+        return view('layouts.admin.products.create', [
+            'title' => 'Create Product',
+        ]);
+    }
 }

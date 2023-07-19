@@ -1,12 +1,19 @@
 @extends('layouts.admin')
 @section('pageTitle', 'Admin Users')
+@push('buttons-css')
+    <link rel="stylesheet" href="{{ asset('assets/css/buttons-css.css') }}">
+@endpush
 @section('content')
     <div class="row">
-        <a href="{{ route('admin.user.create') }}" style="text-align: end">Create</a>
+        <a href="{{ route('admin.user.create') }}" class="btn-button-text">
+            <button class="btn-button">
+                <i class="fe fe-plus"></i>
+            </button>
+        </a>
         <div class="col-md-12 d-flex">
             <div class="card card-table flex-fill">
                 <div class="card-header">
-                    <h4 class="card-title float-start">Quản lý danh mục</h4>
+                    <h4 class="card-title float-start">Quản lý tài khoản</h4>
                     <div class="table-search float-end">
                         <input type="text" class="form-control" placeholder="Search">
                         <button class="btn" type="submit"><i class="fa fa-search"></i></button>
@@ -42,6 +49,9 @@
                                         <div class="actions">
                                             <a href="#" class="btn btn-sm bg-success-light me-2">
                                                 <i class="fe fe-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm bg-success-light me-2">
+                                                <i class="fe fe-edit"></i>
                                             </a>
                                             <a href="#" class="btn btn-sm bg-danger-light">
                                                 <i class="fe fe-close"></i>

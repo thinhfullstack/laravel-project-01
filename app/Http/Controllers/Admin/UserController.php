@@ -14,6 +14,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('layouts.admin.users.create');
+        return view('layouts.admin.users.create', [
+            'title' => 'Create User',
+        ]);
     }
 }
