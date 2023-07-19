@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('app');
+    // return view('app');
 });
 
 Route::get('students', [StudentController::class, 'index'])->name('students.index');
@@ -48,10 +49,11 @@ Route::get('login', function() {
 
 // Admin routes
 Route::prefix('admin')->as('admin.')->group(function() {
-    Route::resource('category', CategoryController::class)->only('index');
-    Route::resource('product', ProductController::class)->only('index');
-    Route::resource('order', OrderController::class)->only('index');
-    Route::resource('customer', CustomerController::class)->only('index');
-    Route::resource('user', UserController::class)->only('index');
-    Route::resource('setting', SettingController::class)->only('index');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
+    Route::resource('order', OrderController::class);
+    Route::resource('customer', CustomerController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('setting', SettingController::class);
 });
