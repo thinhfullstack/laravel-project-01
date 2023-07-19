@@ -9,6 +9,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        return __METHOD__;
+        return view('admin.users.index');
     }
 }
