@@ -1,1 +1,0 @@
-<h1>Category View Page</h1>

@@ -1,0 +1,26 @@
+.btn-button {
+    width: 80px; 
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: purple;
+    color: white;
+}
+
+.btn-button-text {
+    text-align: end;
+}
+
+.btn-save {
+    background-color: #0074d9;
+    color: white;
+}
+
+.btn-cancel {
+    background-color: red;
+    color: white;
+}
+
+.text {
+    text-align: center;
+}

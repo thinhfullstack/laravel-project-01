@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SettingController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
-        return view('layouts.admin.settings.index');
+        return view('layouts.admin.dashboard.index');
     }
 }

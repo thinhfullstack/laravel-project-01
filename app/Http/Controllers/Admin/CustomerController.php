@@ -9,7 +9,14 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        return view('admin.customers.index');
+        return view('layouts.admin.customers.index');
+    }
+
+    public function create()
+    {
+        return view('layouts.admin.customers.create', [
+            'title' => 'Create Customer',
+        ]);
     }
 
     public function update()

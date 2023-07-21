@@ -9,6 +9,13 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('admin.categories.index');
+        return view('layouts.admin.categories.index');
+    }
+
+    public function create()
+    {
+        return view('layouts.admin.categories.create', [
+            'title' => 'Create Category',
+        ]);
     }
 }
