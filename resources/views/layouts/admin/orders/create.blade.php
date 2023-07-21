@@ -7,18 +7,31 @@
     <div class="text">
         <h2>Form {{ $title }}</h2>
     </div>
-    <form action="" method="">
+    <form action="{{ route('admin.order.store') }}" method="POST">
+        @csrf
         <div class="form-group">
-            <label for="">Order Name:</label>
-            <input class="form-control" type="text" placeholder="Enter your order name...">
+            <label for="order_name">Order Name:</label>
+            <input class="form-control" id="order_name" 
+                name="order_name" value="{{ old('order_name') }}" 
+                type="text" placeholder="Enter your order name..."
+            >
+            @error('order_name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group">
-            <label for="">Price:</label>
-            <input class="form-control" type="text" placeholder="Enter your order price...">
+            <label for="price">Price:</label>
+            <input class="form-control" id="price" 
+                name="order_price" value="{{ old('order_price') }}" 
+                type="text" placeholder="Enter your order price..."
+            >
+            @error('order_price')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="form-group">
-            <button class="btn btn-save" type="submit">Save</button>
-            <button class="btn btn-cancel " type="submit">Cancel</button>
+            <button class="btn btn-save" name="btn-save" type="submit">Save</button>
+            <button class="btn btn-cancel" type="reset">Cancel</button>
         </div>
     </form>
 @endsection
