@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\CustomerRequest;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -17,6 +18,11 @@ class CustomerController extends Controller
         return view('layouts.admin.customers.create', [
             'title' => 'Create Customer',
         ]);
+    }
+
+    public function store(CustomerRequest $request)
+    {
+        dd($request->input());
     }
 
     public function update()
