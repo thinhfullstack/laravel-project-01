@@ -10,7 +10,7 @@
     <div class="text">
         <h2>Form {{ $title }}</h2>
     </div>
-    <form action="{{ route('admin.customer.store') }}" method="POST">
+    <form action="{{ route('admin.customer.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="name">Fullname:</label>
@@ -88,24 +88,43 @@
                     value="4" {{ old('location') == '4' ? 'checked' : '' }}
                 >
             </div>
-            <div class="mb-3 border border-secondary p-3 none-block-location">
+            <div class="mb-3 border border-secondary p-3 none-block-location" 
+                <?= old('location') == 4 ? 'd-none' : false ?> >
                 <div class="d-flex p-2">
                     <label class="d-flex w-50 justify-content-center align-items-center" for="">Người phụ thuộc</label>
-                    <input type="text" class="form-control" name="location_value" value="{{ old('location_value') }}" />
+                    <input type="text" class="form-control" name="location_member" value="{{ old('location_member') }}" />
                 </div>
+                @error('location_member')
+                    <div class="text-danger text-center">{{ $message }}</div>
+                @enderror
+
                 <div class="d-flex p-2">
                     <label class="d-flex w-50 justify-content-center align-items-center" for="">Số năm kinh nghiệm</label>
-                    <input type="text" class="form-control" name="location_value" value="{{ old('location_value') }}" />
+                    <input type="text" class="form-control" name="location_year" value="{{ old('location_year') }}" />
                 </div>
+                @error('location_year')
+                    <div class="text-danger text-center">{{ $message }}</div>
+                @enderror
+
                 <div class="d-flex p-2">
                     <label class="d-flex w-50 justify-content-center align-items-center" for="">Facebook URL</label>
-                    <input type="text" class="form-control" name="location_value" value="{{ old('location_value') }}" />
+                    <input type="text" class="form-control" name="location_facebook" value="{{ old('location_facebook') }}" />
                 </div>
-                @error('location_value')
-                    <div class="text-danger">{{ $message }}</div>
+                @error('location_facebook')
+                    <div class="text-danger text-center">{{ $message }}</div>
                 @enderror
+
             </div>
         </div>
+        <div class="form-group">
+            <label for="file">Avatar:</label>
+            <input class="form-control" type="file" id="file" name="file">
+            <img src="{{asset('storage')}}" class="card-img-top" alt="...">
+            @error('file')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
         <div class="form-group">
             <button class="btn btn-save" type="submit">Save</button>
             <button class="btn btn-cancel" type="reset">Cancel</button>
