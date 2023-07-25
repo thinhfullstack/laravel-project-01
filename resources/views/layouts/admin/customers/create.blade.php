@@ -88,6 +88,10 @@
                     value="4" {{ old('location') == '4' ? 'checked' : '' }}
                 >
             </div>
+            @error('location')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+
             <div class="mb-3 border border-secondary p-3 none-block-location" 
                 <?= old('location') == 4 ? 'd-none' : false ?> >
                 <div class="d-flex p-2">
@@ -115,11 +119,12 @@
                 @enderror
 
             </div>
+
         </div>
         <div class="form-group">
             <label for="file">Avatar:</label>
             <input class="form-control" type="file" id="file" name="file">
-            <img src="{{asset('storage')}}" class="card-img-top" alt="...">
+            {{-- <img src="{{ asset('storage')}} " width="100px" height="100px" alt="..."> --}}
             @error('file')
                 <div class="text-danger">{{ $message }}</div>
             @enderror

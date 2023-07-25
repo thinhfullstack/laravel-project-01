@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Customer;
 
-use App\Rules\ValidateMember;
 use App\Rules\ValidateTargetValueRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,14 +26,14 @@ class CustomerRequest extends FormRequest
         return [
             'name' => ['required', 'max:255', 'min:2', 'alpha_num'],
             'email' => ['required', 'email', 'max:255', 'min:2'],
-            'phone' => ['required', 'numeric', 'starts_with:0' ,'digits:10'],
+            'phone' => ['required', 'numeric', 'starts_with:0', 'digits:10'],
             'address' => ['required', 'min:5', new ValidateTargetValueRule],
             'gender' => ['required'],
             'location' => ['required'],
-            'location_member' => ['required', 'integer', 'nullable', 'min:2', new ValidateMember],
+            'location_member' => ['nullable'],
             'location_year' => [Rule::requiredIf($this->location != 4), 'integer', 'min:1'],
             'location_facebook' => ['required', Rule::requiredIf($this->location != 4), 'url'],
-            'file' => ['required','mimes:jpg' ,'max:10000']
+            'file' => ['required', 'mimes:jpg,png', 'max:2048'],
         ];
     }
 

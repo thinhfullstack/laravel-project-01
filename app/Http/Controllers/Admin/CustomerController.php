@@ -22,8 +22,8 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
-        Storage::disk('public')->put('file.png', $request->file);
-        Storage::disk('public')->url('file.png');
+        $files = Storage::disk('public')->put('media', $request->file);
+        Storage::disk('public')->url($files);
     }
 
     public function update()

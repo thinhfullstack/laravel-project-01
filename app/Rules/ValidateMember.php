@@ -14,7 +14,7 @@ class ValidateMember implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if($value >= 1) {
+        if ($value >= 1) {
             $fail('Có ít nhất 1 member được nhập vào');
         }
     }

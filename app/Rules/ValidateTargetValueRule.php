@@ -15,9 +15,9 @@ class ValidateTargetValueRule implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // Check Address
-        if(is_numeric($value)) {
+        if (is_numeric($value)) {
             $fail(':attribute không được chỉ nhập mỗi số');
         }
-        
+
     }
 }

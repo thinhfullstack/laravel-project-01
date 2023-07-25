@@ -23,7 +23,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'order_name' => ['required', 'min:5'],
-            'order_price' => ['required','numeric'],
+            'order_price' => ['required', 'numeric'],
         ];
     }
 

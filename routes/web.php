@@ -28,7 +28,7 @@ Route::get('/', function () {
 Route::get('students', [StudentController::class, 'index'])->name('students.index');
 Route::get('students/{id}', [StudentController::class, 'show'])->name('students.show');
 
-Route::prefix('admin')->as('admin.')->group(function() {
+Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('user', [UserController::class, 'index'])
         ->middleware('checkLogic')
         ->name('user.index');
@@ -39,16 +39,16 @@ Route::prefix('admin')->as('admin.')->group(function() {
     Route::resource('customers', CustomerController::class)->only('index', 'update', 'destroy');
 });
 
-Route::put('edit-user', function() {
-    return "UPdate user";
+Route::put('edit-user', function () {
+    return 'UPdate user';
 })->name('user.edit');
 
-Route::get('login', function() {
-    return "login Page";
+Route::get('login', function () {
+    return 'login Page';
 })->name('login');
 
 // Admin routes
-Route::prefix('admin')->as('admin.')->group(function() {
+Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('category', CategoryController::class);
     Route::resource('product', ProductController::class);
