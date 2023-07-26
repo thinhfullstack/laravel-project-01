@@ -5,9 +5,7 @@ const noneLocation = document.querySelector('.none-block-location')
 changeLocation.forEach((item) => {
     item.addEventListener('click', () => {
         if(item.checked) {
-            noneLocation.style.display = 'block'
-        } else {
-            noneLocation.style.display = 'none'
+            noneLocation.style.display = item.checked ? 'block' : 'none'
         }
     })
 })
