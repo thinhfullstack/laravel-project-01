@@ -5,7 +5,7 @@ namespace App\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ValidateTargetValueRule implements ValidationRule
+class ValidateLocations implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -14,10 +14,8 @@ class ValidateTargetValueRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        // Check Address
-        if (is_numeric($value)) {
-            $fail(':attribute không được chỉ nhập mỗi số');
+        if($value != 4) {
+            $fail('location is Cần Thơ');
         }
-
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CustomerRequest;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -22,7 +22,10 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
-        dd($request->input());
+        $files = Storage::disk('public')->put('media', $request->file);
+        Storage::disk('public')->url($files);
+
+        dd($request->all());
     }
 
     public function update()

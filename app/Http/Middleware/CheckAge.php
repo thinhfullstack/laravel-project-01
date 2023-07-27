@@ -16,8 +16,9 @@ class CheckAge
     public function handle(Request $request, Closure $next): Response
     {
         // $age = $request->input();
-        if($this->isLogic()) {
-            echo "a";
+        if ($this->isLogic()) {
+            echo 'a';
+
             return $next($request);
         }
 

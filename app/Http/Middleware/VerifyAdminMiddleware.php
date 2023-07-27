@@ -15,12 +15,11 @@ class VerifyAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->email != 'admin@gmail.com' || $request->password != 123123) {
+        if ($request->email != 'admin@gmail.com' || $request->password != 123123) {
             // abort(403);
             return redirect()->route('login');
         }
 
         return $next($request);
     }
-
 }

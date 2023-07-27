@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -12,15 +11,15 @@ class StudentController extends Controller
         $students = [
             [
                 'id' => 1,
-                'name' => 'Student 01'
+                'name' => 'Student 01',
             ],
             [
                 'id' => 2,
-                'name' => 'Student 02'
+                'name' => 'Student 02',
             ],
             [
                 'id' => 3,
-                'name' => 'Student 03'
+                'name' => 'Student 03',
             ],
         ];
 
@@ -39,19 +38,19 @@ class StudentController extends Controller
         $studentInfo = null;
         $students = $this->studentData();
 
-        foreach($students as $student) {
-            if($student['id'] == $id) {
+        foreach ($students as $student) {
+            if ($student['id'] == $id) {
                 $studentInfo = $student;
                 break;
             }
         }
 
-        if($studentInfo) {
+        if ($studentInfo) {
             return view('students.show', [
-                'student' => $studentInfo
+                'student' => $studentInfo,
             ]);
-        }else {
-            return "Sinh viên không tồn tại";
+        } else {
+            return 'Sinh viên không tồn tại';
         }
     }
 }

@@ -5,7 +5,7 @@ namespace App\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ValidateTargetValueRule implements ValidationRule
+class ValidateFacebook implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -14,10 +14,10 @@ class ValidateTargetValueRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        // Check Address
-        if (is_numeric($value)) {
-            $fail(':attribute không được chỉ nhập mỗi số');
-        }
+        $facebook_url = preg_match('#https?\://(?:www\.)?facebook\.com/(\d+|[A-Za-z0-9\.]+)/?#', $value);
 
+        if(!$facebook_url) {
+            $fail("Phải đúng định dạng facebook");
+        }
     }
 }
