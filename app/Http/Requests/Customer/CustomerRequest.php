@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Customer;
 
 use App\Rules\ValidateTargetValueRule;
+use App\Rules\ValidateFacebook;
+use App\Rules\ValidateMember;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CustomerRequest extends FormRequest
 {
@@ -23,18 +24,26 @@ class CustomerRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => ['required', 'max:255', 'min:2', 'alpha_num'],
             'email' => ['required', 'email', 'max:255', 'min:2'],
             'phone' => ['required', 'numeric', 'starts_with:0', 'digits:10'],
             'address' => ['required', 'min:5', new ValidateTargetValueRule],
-            'gender' => ['required'],
+            'gender' => ['required', 'in:1,2'],
             'location' => ['required'],
+            'file' => ['required', 'mimes:jpg,png', 'max:10000'],
             'location_member' => ['nullable'],
-            'location_year' => [Rule::requiredIf($this->location != 4), 'integer', 'min:1'],
-            'location_facebook' => ['required', Rule::requiredIf($this->location != 4), 'url'],
-            'file' => ['required', 'mimes:jpg,png', 'max:2048'],
+            'location_year' => ['required', 'numeric', 'min:1'],
+            'location_facebook' => ['required', 'url', new ValidateFacebook]
         ];
+
+        if ($this->input('location') == 4) {
+            unset($rules['location_member']);
+            unset($rules['location_year']);
+            unset($rules['location_facebook']);
+        }
+
+        return $rules;
     }
 
     public function attributes()

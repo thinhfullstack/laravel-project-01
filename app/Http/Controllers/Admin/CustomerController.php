@@ -24,6 +24,8 @@ class CustomerController extends Controller
     {
         $files = Storage::disk('public')->put('media', $request->file);
         Storage::disk('public')->url($files);
+
+        dd($request->all());
     }
 
     public function update()

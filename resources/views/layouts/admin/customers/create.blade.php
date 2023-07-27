@@ -80,7 +80,7 @@
                     value="2" {{ old('location') == '2' ? 'checked' : '' }}
                 >
                 <label for="hcm">Hồ Chí Minh</label>
-                <input type="radio" id="hcm" name="location" 
+                <input type="radio" id="hcm" class="js-location-block" name="location" 
                     value="3" {{ old('location') == '3' ? 'checked' : '' }}
                 >
                 <label for="cantho">Cần Thơ</label>
