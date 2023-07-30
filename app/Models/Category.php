@@ -27,4 +27,23 @@ class Category extends Model
     {
         return $this->hasMany(Course::class);
     }
+
+    protected $appends = [
+        'owner',
+        'suntech'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+    ];
+
+    public function getOwnerAttribute()
+    {
+        return Category::find($this->id)->slug ?? null;
+    }
+
+    public function getSuntechAttribute()
+    {
+        return Category::find($this->id)->name ?? null;
+    }
 }
