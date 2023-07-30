@@ -22,5 +22,12 @@ class SectionSeeder extends Seeder
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime,
         ]);
+
+        DB::table('sections')->insert([
+            'name' => 'Chương II',
+            'course_id' => 2,
+            'created_at' => $currentDateTime,
+            'updated_at' => $currentDateTime,
+        ]);
     }
 }
