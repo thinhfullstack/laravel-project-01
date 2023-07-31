@@ -30,9 +30,9 @@ class Course extends Model
         'meta_keyword',
     ];
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function users()
