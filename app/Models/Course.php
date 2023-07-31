@@ -10,7 +10,6 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'name',
         'slug',
         'link',
@@ -29,12 +28,15 @@ class Course extends Model
         'meta_title',
         'meta_desc',
         'meta_keyword',
-        'created_at',
-        'updated_at',
     ];
 
     public function categories()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
     }
 }

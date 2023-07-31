@@ -33,9 +33,9 @@ class Category extends Model
         'suntech'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
-    ];
+    // protected $casts = [
+    //     'created_at' => 'datetime:Y-m-d',
+    // ];
 
     public function getOwnerAttribute()
     {

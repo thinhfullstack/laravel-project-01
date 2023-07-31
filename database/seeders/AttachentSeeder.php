@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Section;
+use App\Models\Attachent;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-class SectionSeeder extends Seeder
+
+class AttachentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Section::factory()->count(10)->create();
+        Attachent::factory()->count(10)->create();
     }
 }

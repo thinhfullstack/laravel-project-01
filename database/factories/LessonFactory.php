@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Course;
-use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,13 +18,13 @@ class LessonFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'course_id' => Course::factory()->create()->id,
-            'section_id' => Section::factory()->create()->id,
-            'video_type' => fake()->numberBetween(1, 10),
-            'video_url' => fake()->name(),
-            'time' => fake()->name(),
-            'preview' => fake()->boolean(),
-            'content' => fake()->text(),
+            'course_id' => fake()->numberBetween(1, 20),
+            'section_id' => fake()->numberBetween(1, 20),
+            'video_type' => fake()->numberBetween(1, 4),
+            'video_url' => fake()->url,
+            'time' => fake()->time,
+            'preview' => fake()->numberBetween(1, 9),
+            'content' => fake()->paragraph,
         ];
     }
 }
