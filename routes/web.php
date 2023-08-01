@@ -1,13 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\StudentController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,38 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('app');
+    return view('welcome');
 });
 
-Route::get('students', [StudentController::class, 'index'])->name('students.index');
-Route::get('students/{id}', [StudentController::class, 'show'])->name('students.show');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::prefix('admin')->as('admin.')->group(function () {
-    Route::get('user', [UserController::class, 'index'])
-        ->middleware('checkLogic')
-        ->name('user.index');
-    Route::get('category', [CategoryController::class, 'index'])
-        ->middleware('verified.admin')
-        ->name('category.index');
-    Route::get('product', [ProductController::class, 'index']);
-    Route::resource('customers', CustomerController::class)->only('index', 'update', 'destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::put('edit-user', function () {
-    return 'UPdate user';
-})->name('user.edit');
-
-Route::get('login', function () {
-    return 'login Page';
-})->name('login');
-
-// Admin routes
-Route::prefix('admin')->as('admin.')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::resource('category', CategoryController::class);
-    Route::resource('product', ProductController::class);
-    Route::resource('order', OrderController::class);
-    Route::resource('customer', CustomerController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('setting', SettingController::class);
-});
+require __DIR__.'/auth.php';
