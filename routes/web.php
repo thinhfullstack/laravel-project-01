@@ -22,6 +22,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('adminMiddleware')->group(function () {
+    Route::get('writer', function () {
+        return 'Hello Writer';
+    });
+    Route::get('student', function () {
+        return 'Hello Student';
+    });
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
