@@ -48,6 +48,8 @@ class UserController extends Controller
 
         $this->model->create($inputs);
 
+        $request->session()->flash('success', 'Create user successful!');
+
         return to_route('user.index');
     }
 
@@ -81,6 +83,8 @@ class UserController extends Controller
         }
 
         $this->model->find($id)->update($inputs);
+
+        $request->session()->flash('success', 'Update user successful!');
 
         return to_route('user.index');
     }
