@@ -50,6 +50,15 @@
                             <x-input-error class="mt-2" :messages="$errors->get('password_confirm')" />
                         </div>
                         <div>
+                            <select class="form-select" aria-label="Default select example" name="family_id">
+                                @foreach ($families as $family)
+                                    <option value="{{ $family->id }}" {{ (old('family_id', $user->family->id ?? null) == $family->id) ? 'selected' : '' }}>
+                                        {{ $family->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
                             <x-input-label for="gender" :value="__('Gender')" />
                             <label for="male">
                                 <input type="radio" id="male" name="gender" value="1" {{ old('gender', $user->gender ?? null) == 1 ? 'checked' : '' }}> Male

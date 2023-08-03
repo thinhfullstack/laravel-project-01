@@ -27,6 +27,7 @@ class SaveUserRequest extends FormRequest
             'email' => ['required', 'max:255', 'email', Rule::unique('users')->ignore($this->user)],
             'phone' => ['required', 'numeric', Rule::unique('users')->ignore($this->user)],
             'address' => ['required', 'max:255'],
+            'family_id' => ['required'],
             'gender' => ['required', 'in:1,2'],
             'avatar' => ['nullable', 'mimes:jpg,png,gif,csv,jpeg,xlsx,xls,webp,pdf', 'max:5000']
         ];

@@ -33,6 +33,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'address',
+        'family_id',
         'password',
         'type',
         'gender',
@@ -62,6 +63,11 @@ class User extends Authenticatable
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id');
+    }
+
+    public function family()
+    {
+        return $this->belongsTo(Family::class, 'family_id', 'id');
     }
 
     public function getUserTypeAttribute()

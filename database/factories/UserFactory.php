@@ -22,6 +22,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->e164PhoneNumber(),
             'address' => fake()->address(),
+            'family_id' => fake()->randomNumber(1, 9),
             'avatar' => fake()->imageUrl(200, 200),
             'password' => bcrypt('12345678'),
             'email_verified_at' => now(),

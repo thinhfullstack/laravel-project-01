@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('address')->nullable();
+            $table->bigInteger('family_id');
             $table->tinyInteger('type')->comment('1: Admin, 2: Teacher, 3: Student');
             $table->tinyInteger('gender')->comment('1: Male, 2: Female');
             $table->string('avatar')->nullable();

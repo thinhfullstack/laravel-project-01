@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveUserRequest;
+use App\Models\Family;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->model->all();
+        $users = $this->model->with('family')->get();
 
         return view('layouts.users.index', [
             'users' => $users,
@@ -35,6 +36,7 @@ class UserController extends Controller
     {
         return view('layouts.users.form', [
             'title' => 'User Create',
+            'families' => Family::get()
         ]);
     }
 
@@ -72,6 +74,7 @@ class UserController extends Controller
         return view('layouts.users.form', [
             'user' => $this->model->find($id),
             'title' => 'User Edit',
+            'families' => Family::get()
         ]);
     }
 
