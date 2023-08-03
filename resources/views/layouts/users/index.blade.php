@@ -16,6 +16,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">STT</th>
+                                <th scope="col">Avatar</th>
                                 <th scope="col">User Type</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
@@ -28,6 +29,9 @@
                             @foreach ($users as $user)
                                 <tr>
                                     <th scope="row">{{ $user->id }}</th>
+                                    <td>
+                                        <img style="width: 50px; height: 50px; border-radius: 50%" src="/storage/{{ $user->avatar }}" alt="">
+                                    </td>
                                     <td>{{ $user->user_type }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>

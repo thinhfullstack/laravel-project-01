@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -46,6 +47,10 @@ class UserController extends Controller
         $inputs['password'] = bcrypt($request->password);
         $inputs['type'] = User::TYPE['admin'];
 
+        if ($request->avatar) {
+            $inputs['avatar'] = Storage::disk('public')->put('media', $request->avatar);
+        }
+
         $this->model->create($inputs);
 
         return to_route('user.index');
@@ -78,6 +83,10 @@ class UserController extends Controller
         $inputs = array_filter($request->all());
         if($request->password) {
             $inputs['password'] = bcrypt($request->password);
+        }
+
+        if ($request->avatar) {
+            $inputs['avatar'] = Storage::disk('public')->put('media', $request->avatar);
         }
 
         $this->model->find($id)->update($inputs);
