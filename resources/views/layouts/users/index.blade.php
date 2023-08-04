@@ -10,6 +10,20 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="form-search">
+                <form action="{{ route('user.index') }}" method="GET" class="d-flex">
+                    <select class="form-select" aria-label="Default select example" name="family_id">
+                        <option selected disabled>All Selected</option>
+                        @foreach ($families as $family)
+                            <option value="{{ $family->id }}" {{ request()->get('family_id') == $family->id ? 'selected' : '' }}>
+                                {{ $family->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <input type="text" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Search keyword...">
+                    <button class="btn btn-primary">Search</button>
+                </form>
+            </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <table class="table">
@@ -32,7 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($usersPaginate->items() as $user)
                                 <tr>
                                     <th scope="row">{{ $user->id }}</th>
                                     <td>
@@ -58,7 +72,10 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                      </table>
+                    </table>
+                    <div>
+                        {{ $usersPaginate->links() }}
+                    </div>
                 </div>
             </div>
         </div>

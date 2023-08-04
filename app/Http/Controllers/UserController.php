@@ -20,12 +20,28 @@ class UserController extends Controller
         $this->model = $userModel;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->model->with('family')->get();
+        $inputs = $request->all();
+        $query = $this->model->query();
+
+        if(!empty($inputs['family_id'])) {
+            $query->where('family_id', $inputs['family_id']);
+        }
+
+        if(!empty($inputs['keyword'])) {
+            $query->where(function($query) use ($inputs) {
+                $query->orWhere('name', 'like', '%' . $inputs['keyword'] . '%')
+                    ->orWhere('email', 'like', '%' . $inputs['keyword'] . '%')
+                    ->orWhere('phone', 'like', '%' . $inputs['keyword'] . '%');
+            });
+        }
+
+        $usersPaginate = $query->with('family')->paginate(10);
 
         return view('layouts.users.index', [
-            'users' => $users,
+            'usersPaginate' => $usersPaginate,
+            'families' => Family::get()
         ]);
     }
 
