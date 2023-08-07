@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->belongsTo(Family::class, 'family_id', 'id');
     }
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     public function getUserTypeAttribute()
     {
         if($this->attributes['type'] == static::TYPE['admin']) {

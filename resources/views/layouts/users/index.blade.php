@@ -25,7 +25,7 @@
                 </form>
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-6 text-gray-900 overflow-scroll">
                     <table class="table">
                         @if(Session::has('success'))
                             <div class="alert alert-success">
@@ -40,6 +40,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Family Name</th>
+                                <th scope="col">Link Profile</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Gender</th>
                                 <th scope="col">Action</th>
@@ -56,6 +57,15 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->family->name }}</td>
+                                    <td>
+                                        @if ($user->profile)
+                                            <strong>Facebook:</strong><a href="#">{{ $user->profile->facebook_url }}</a><br />
+                                            <strong>Twitter:</strong><a href="#">{{ $user->profile->twitter_url }}</a><br />
+                                            <strong>Youtube:</strong><a href="#">{{ $user->profile->youtube_url }}</a><br />
+                                            <strong>Zalo:</strong><a href="#">{{ $user->profile->zalo_phone }}</a><br />
+                                            <strong>Other:</strong><a href="#">{{ $user->profile->other_info }}</a>
+                                        @endif
+                                    </td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->gender_label }}</td>
                                     <td>   
@@ -73,10 +83,10 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div>
-                        {{ $usersPaginate->appends(request()->query())->links() }}
-                    </div>
                 </div>
+            </div>
+            <div class="mt-3">
+                {{ $usersPaginate->appends(request()->query())->links() }}
             </div>
         </div>
     </div>

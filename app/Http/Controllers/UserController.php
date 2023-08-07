@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveUserRequest;
 use App\Models\Family;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -64,12 +65,18 @@ class UserController extends Controller
         $inputs = $request->all();
         $inputs['password'] = bcrypt($request->password);
         $inputs['type'] = User::TYPE['admin'];
-
+        
         if ($request->avatar) {
             $inputs['avatar'] = Storage::disk('public')->put('media', $request->avatar);
         }
+        
+        $user = $this->model->create($inputs);
 
-        $this->model->create($inputs);
+        $profileData = $request->only(['facebook_url', 'twitter_url', 'youtube_url', 'zalo_phone', 'other_info']);
+
+        if (!empty(array_filter($profileData))) {
+            $user->profile()->create($profileData);
+        }
 
         $request->session()->flash('success', 'Create user successful!');
 
@@ -101,6 +108,8 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, string $id)
     {
+        $user = $this->model->find($id);
+
         $inputs = array_filter($request->all());
         if($request->password) {
             $inputs['password'] = bcrypt($request->password);
@@ -110,7 +119,17 @@ class UserController extends Controller
             $inputs['avatar'] = Storage::disk('public')->put('media', $request->avatar);
         }
 
-        $this->model->find($id)->update($inputs);
+        $user->update($inputs);
+
+        $profileData = $request->only(['facebook_url', 'twitter_url', 'youtube_url', 'zalo_phone', 'other_info']);
+
+        if (!empty(array_filter($profileData))) {
+            if ($user->profile) {
+                $user->profile->update($profileData);
+            } else {
+                $user->profile()->create($profileData);
+            }
+        }
 
         $request->session()->flash('success', 'Update user successful!');
 
