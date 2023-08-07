@@ -74,7 +74,7 @@
                         </tbody>
                     </table>
                     <div>
-                        {{ $usersPaginate->links() }}
+                        {{ $usersPaginate->appends(request()->query())->links() }}
                     </div>
                 </div>
             </div>
