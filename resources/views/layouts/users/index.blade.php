@@ -10,8 +10,22 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="form-search">
+                <form action="{{ route('user.index') }}" method="GET" class="d-flex">
+                    <select class="form-select" aria-label="Default select example" name="family_id">
+                        <option selected disabled>All Selected</option>
+                        @foreach ($families as $family)
+                            <option value="{{ $family->id }}" {{ request()->get('family_id') == $family->id ? 'selected' : '' }}>
+                                {{ $family->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <input type="text" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Search keyword...">
+                    <button class="btn btn-primary">Search</button>
+                </form>
+            </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-6 text-gray-900 overflow-scroll">
                     <table class="table">
                         @if(Session::has('success'))
                             <div class="alert alert-success">
@@ -26,13 +40,14 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Family Name</th>
+                                <th scope="col">Link Profile</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Gender</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($usersPaginate->items() as $user)
                                 <tr>
                                     <th scope="row">{{ $user->id }}</th>
                                     <td>
@@ -42,6 +57,15 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->family->name }}</td>
+                                    <td>
+                                        @if ($user->profile)
+                                            <strong>Facebook:</strong><a href="{{ $user->profile->facebook_url }}">{{ $user->profile->facebook_url }}</a><br />
+                                            <strong>Twitter:</strong><a href="{{ $user->profile->twitter_url }}">{{ $user->profile->twitter_url }}</a><br />
+                                            <strong>Youtube:</strong><a href="{{ $user->profile->youtube_url }}">{{ $user->profile->youtube_url }}</a><br />
+                                            <strong>Zalo:</strong><a href="{{ $user->profile->zalo_phone }}">{{ $user->profile->zalo_phone }}</a><br />
+                                            <strong>Other:</strong><a href="{{ $user->profile->other_info }}">{{ $user->profile->other_info }}</a>
+                                        @endif
+                                    </td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->gender_label }}</td>
                                     <td>   
@@ -58,8 +82,11 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                      </table>
+                    </table>
                 </div>
+            </div>
+            <div class="mt-3">
+                {{ $usersPaginate->appends(request()->query())->links() }}
             </div>
         </div>
     </div>

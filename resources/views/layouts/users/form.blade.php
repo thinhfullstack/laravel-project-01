@@ -58,6 +58,53 @@
                                 @endforeach
                             </select>
                         </div>
+                        
+                        <!-- Button trigger modal -->
+                        <button type="button" name="profiles" class="btn btn-primary text-black-50" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Profile Details
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal Profile Details</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="facebook_url" class="form-label">Facebook URL:</label>
+                                            <input type="text" name="facebook_url" value="{{ old('facebook_url', $user->profile->facebook_url ?? '') }}" class="form-control" id="facebook_url" placeholder="Facebook Url...">
+                                            <x-input-error class="mt-2" :messages="$errors->get('facebook_url')" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="twitter_url" class="form-label">Twitter URL:</label>
+                                            <input type="text" name="twitter_url" value="{{ old('facebook_url', $user->profile->twitter_url ?? '') }}" class="form-control" id="twitter_url" placeholder="Twitter url...">
+                                            <x-input-error class="mt-2" :messages="$errors->get('twitter_url')" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="youtube_url" class="form-label">Youtube URL:</label>
+                                            <input type="text" name="youtube_url" value="{{ old('facebook_url', $user->profile->youtube_url ?? '') }}" class="form-control" id="youtube_url" placeholder="Youtube url...">
+                                            <x-input-error class="mt-2" :messages="$errors->get('youtube_url')" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="zalo_phone" class="form-label">Zalo Phone:</label>
+                                            <input type="text" name="zalo_phone" value="{{ old('facebook_url', $user->profile->zalo_phone ?? '') }}" class="form-control" id="zalo_phone" placeholder="Zalo phone...">
+                                            <x-input-error class="mt-2" :messages="$errors->get('zalo_phone')" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="other_info" class="form-label">Other:</label>
+                                            <input type="text" name="other_info" value="{{ old('facebook_url', $user->profile->other_info ?? '') }}" class="form-control" id="other_info" placeholder="Other_info...">
+                                            <x-input-error class="mt-2" :messages="$errors->get('other_info')" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary text-black-50" data-bs-dismiss="modal">Save Profile</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div>
                             <x-input-label for="gender" :value="__('Gender')" />
                             <label for="male">

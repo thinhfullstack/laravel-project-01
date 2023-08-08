@@ -13,19 +13,39 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    protected $model;
+    protected $userModel;
+    protected $familyModel;
 
-    public function __construct(User $userModel)
+    public function __construct(User $userModel, Family $familyModel)
     {
-        $this->model = $userModel;
+        $this->userModel = $userModel;
+        $this->familyModel = $familyModel;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->model->with('family')->get();
+        $inputs = $request->all();
+        $query = $this->userModel->query();
+
+        if (!empty($inputs['family_id'])) {
+            $query->where('family_id', $inputs['family_id']);
+        }
+
+        if (!empty($inputs['keyword'])) {
+            $query->where(function($query) use ($inputs) {
+                $query->orWhere('name', 'like', '%' . $inputs['keyword'] . '%')
+                    ->orWhere('email', 'like', '%' . $inputs['keyword'] . '%')
+                    ->orWhere('phone', 'like', '%' . $inputs['keyword'] . '%');
+            });
+        }
+
+        $usersPaginate = $query->with('family')->paginate(10);
+
+        $families = $this->familyModel->all();
 
         return view('layouts.users.index', [
-            'users' => $users,
+            'usersPaginate' => $usersPaginate,
+            'families' => $families
         ]);
     }
 
@@ -34,9 +54,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        $families = $this->familyModel->all();
+
         return view('layouts.users.form', [
             'title' => 'User Create',
-            'families' => Family::get()
+            'families' => $families
         ]);
     }
 
@@ -48,12 +70,18 @@ class UserController extends Controller
         $inputs = $request->all();
         $inputs['password'] = bcrypt($request->password);
         $inputs['type'] = User::TYPE['admin'];
-
+        
         if ($request->avatar) {
             $inputs['avatar'] = Storage::disk('public')->put('media', $request->avatar);
         }
+        
+        $user = $this->userModel->create($inputs);
 
-        $this->model->create($inputs);
+        $profileData = $request->only(['facebook_url', 'twitter_url', 'youtube_url', 'zalo_phone', 'other_info']);
+
+        if (!empty(array_filter($profileData))) {
+            $user->profile()->create($profileData);
+        }
 
         $request->session()->flash('success', 'Create user successful!');
 
@@ -73,10 +101,12 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        $families = $this->familyModel->all();
+
         return view('layouts.users.form', [
-            'user' => $this->model->find($id),
+            'user' => $this->userModel->find($id),
             'title' => 'User Edit',
-            'families' => Family::get()
+            'families' => $families
         ]);
     }
 
@@ -85,8 +115,10 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, string $id)
     {
+        $user = $this->userModel->find($id);
+
         $inputs = array_filter($request->all());
-        if($request->password) {
+        if ($request->password) {
             $inputs['password'] = bcrypt($request->password);
         }
 
@@ -94,7 +126,13 @@ class UserController extends Controller
             $inputs['avatar'] = Storage::disk('public')->put('media', $request->avatar);
         }
 
-        $this->model->find($id)->update($inputs);
+        $user->update($inputs);
+
+        $profileData = $request->only(['facebook_url', 'twitter_url', 'youtube_url', 'zalo_phone', 'other_info']);
+
+        if (!empty(array_filter($profileData))) {
+            $user->profile()->updateOrCreate([], $profileData);
+        }
 
         $request->session()->flash('success', 'Update user successful!');
 
@@ -106,7 +144,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->model->find($id)->delete();
+        $this->userModel->find($id)->delete();
 
         return to_route('user.index');
     }

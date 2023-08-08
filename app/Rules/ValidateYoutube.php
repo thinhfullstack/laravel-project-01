@@ -5,7 +5,7 @@ namespace App\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class ValidateFacebook implements ValidationRule
+class ValidateYoutube implements ValidationRule
 {
     /**
      * Run the validation rule.
@@ -14,10 +14,10 @@ class ValidateFacebook implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $facebook_url = preg_match('#https?\://(?:www\.)?facebook\.com/(\d+|[A-Za-z0-9\.]+)/?#', $value);
+        $youtube = 'regex:/^https?:\/\/(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|channels\/(?:[\w\-]+\/|UC[\w\-]+|user\/[\w\-]+))([\w\-]{11})(?:[\?&][\w\-]+=[\w\-]+)*$/';
 
-        if (!$facebook_url) {
-            $fail("Phải đúng định dạng facebook");
+        if (!$youtube) {
+            $fail("Phải đúng định dạng youtube");
         }
     }
 }
