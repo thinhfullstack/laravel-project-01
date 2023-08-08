@@ -47,14 +47,14 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('news.destroy', ['news', $news->id]) }}" method="POST" 
+                                        <form action="{{ route('news.destroy', ['news' => $news->id]) }}" method="POST" 
                                             onclick="return confirm('Bạn có chắc chắn muốn xoá {{ $news->name }} này không?')"
                                             >
-                                            <a href="{{ route('news.edit', ['news' => $news->id]) }}">Edit</a>
+                                            <a href="{{ route('news.edit', ['news' => $news->id]) }}" class="btn btn-primary">Edit</a>
 
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit">Delete</button>
+                                            <button type="submit" class="btn btn-danger bg-danger text-white">Delete</button>
                                         </form>
                                     </td>
                                 </tr>

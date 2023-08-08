@@ -46,7 +46,6 @@ class NewsController extends Controller
     public function store(NewsRequest $request)
     {
         $inputs = $request->all();
-        dd($inputs);
 
         $this->newsModel->create($inputs);
 
@@ -79,9 +78,15 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(NewsRequest $request, string $id)
     {
-        //
+        $inputs = $request->all();
+
+        $this->newsModel->find($id)->update($inputs);
+
+        $request->session()->flash('success', 'Update news successful!');
+
+        return to_route('news.index');
     }
 
     /**
