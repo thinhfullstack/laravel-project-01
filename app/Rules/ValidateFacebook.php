@@ -16,7 +16,7 @@ class ValidateFacebook implements ValidationRule
     {
         $facebook_url = preg_match('#https?\://(?:www\.)?facebook\.com/(\d+|[A-Za-z0-9\.]+)/?#', $value);
 
-        if(!$facebook_url) {
+        if (!$facebook_url) {
             $fail("Phải đúng định dạng facebook");
         }
     }

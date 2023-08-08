@@ -16,7 +16,7 @@ class ValidateTwitter implements ValidationRule
     {
         $twitter = 'regex:/^https?:\/\/(?:www\.)?twitter\.com\/[A-Za-z0-9_]{1,15}$/';
 
-        if(!$twitter) {
+        if (!$twitter) {
             $fail("Phải đúng định dạng twitter");
         }
     }

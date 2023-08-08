@@ -16,7 +16,7 @@ class ValidateYoutube implements ValidationRule
     {
         $youtube = 'regex:/^https?:\/\/(?:www\.)?youtube\.com\/(?:watch\?v=|embed\/|v\/|channels\/(?:[\w\-]+\/|UC[\w\-]+|user\/[\w\-]+))([\w\-]{11})(?:[\?&][\w\-]+=[\w\-]+)*$/';
 
-        if(!$youtube) {
+        if (!$youtube) {
             $fail("Phải đúng định dạng youtube");
         }
     }
