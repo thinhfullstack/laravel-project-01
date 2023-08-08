@@ -40,10 +40,10 @@ class SaveUserRequest extends FormRequest
         if(empty($this->user)) {
             $rules['password'] = ['required', 'min:6', 'max:20'];
             $rules['password_confirm'] = ['required', 'same:password'];
-            $rules['facebook_url'] = ['required', 'url', new ValidateFacebook];
-            $rules['twitter_url'] = ['required', 'url', new ValidateTwitter];
-            $rules['youtube_url'] = ['required', 'url', new ValidateYoutube];
-            $rules['zalo_phone'] = ['required', 'regex:/^0\d{9,10}$/'];
+            $rules['facebook_url'] = ['required', 'url', new ValidateFacebook, Rule::unique('profiles')->ignore($this->profile)];
+            $rules['twitter_url'] = ['required', 'url', new ValidateTwitter, Rule::unique('profiles')->ignore($this->profile)];
+            $rules['youtube_url'] = ['required', 'url', new ValidateYoutube, Rule::unique('profiles')->ignore($this->profile)];
+            $rules['zalo_phone'] = ['required', 'regex:/^0\d{9,10}$/', Rule::unique('profiles')->ignore($this->profile)];
         }
 
         // When update user

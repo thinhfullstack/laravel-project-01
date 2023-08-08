@@ -59,11 +59,11 @@
                                     <td>{{ $user->family->name }}</td>
                                     <td>
                                         @if ($user->profile)
-                                            <strong>Facebook:</strong><a href="#">{{ $user->profile->facebook_url }}</a><br />
-                                            <strong>Twitter:</strong><a href="#">{{ $user->profile->twitter_url }}</a><br />
-                                            <strong>Youtube:</strong><a href="#">{{ $user->profile->youtube_url }}</a><br />
-                                            <strong>Zalo:</strong><a href="#">{{ $user->profile->zalo_phone }}</a><br />
-                                            <strong>Other:</strong><a href="#">{{ $user->profile->other_info }}</a>
+                                            <strong>Facebook:</strong><a href="{{ $user->profile->facebook_url }}">{{ $user->profile->facebook_url }}</a><br />
+                                            <strong>Twitter:</strong><a href="{{ $user->profile->twitter_url }}">{{ $user->profile->twitter_url }}</a><br />
+                                            <strong>Youtube:</strong><a href="{{ $user->profile->youtube_url }}">{{ $user->profile->youtube_url }}</a><br />
+                                            <strong>Zalo:</strong><a href="{{ $user->profile->zalo_phone }}">{{ $user->profile->zalo_phone }}</a><br />
+                                            <strong>Other:</strong><a href="{{ $user->profile->other_info }}">{{ $user->profile->other_info }}</a>
                                         @endif
                                     </td>
                                     <td>{{ $user->phone }}</td>
