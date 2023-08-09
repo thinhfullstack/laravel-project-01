@@ -25,23 +25,24 @@ class NewsController extends Controller
         if (!empty($inputs['is_suppension'])) {
             $query->where(function($query) use ($inputs) {
                 switch ($inputs['is_suppension']) {
-                    case 'stop':
-                        $query->where('is_suppension', 1);
+                    case '1':
+                        $query->isSuppension();
                         break;
-                    case 'post':
-                        $query->where('start_at', '<=', now());
+                    case '2':
+                        $query->where('start_at', '>', now());
+                        $query->where('end_at', '>', now());
                         break;
-                    case 'expired':
+                    case '3':
                         $query->where('end_at', '<', now());
                         break;
-                    case 'waitForPosting':
-                        $query->where('start_at', '>', now());
+                    case '4':
+                        $query->where('start_at', '<=', now());
+                        $query->where('end_at', '>', now());
                         break;
                 }
             });
         }
         
-
         if (!empty($inputs['keyword'])) {
             $query->where(function($query) use ($inputs) {
                 $query->orWhere('name', 'like', '%' . $inputs['keyword'] . '%');
@@ -64,10 +65,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $news = $this->newsModel->all();
-
         return view('layouts.news.form', [
-            'news' => $news,
             'title' => 'Create News',
         ]);
     }

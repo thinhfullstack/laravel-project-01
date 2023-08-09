@@ -15,4 +15,9 @@ class News extends Model
         'end_at',
         'is_suppension'
     ];
+
+    public function scopeIsSuppension($query)
+    {
+        return $query->where('is_suppension', 1);
+    }
 }

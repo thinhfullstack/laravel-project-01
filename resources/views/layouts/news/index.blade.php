@@ -14,10 +14,10 @@
                 <form action="{{ route('news.index') }}" method="GET" class="d-flex">
                     <select class="form-select" aria-label="Default select example" name="is_suppension">
                         <option selected disabled>Status News</option>
-                        <option value="stop" {{ request()->get('is_suppension') == 'stop' ? 'selected' : '' }}>Đã dừng</option>
-                        <option value="post" {{ request()->get('is_suppension') == 'post' ? 'selected' : '' }}>Đã đăng</option>
-                        <option value="expired" {{ request()->get('is_suppension') == 'expired' ? 'selected' : '' }}>Đã hết hạn</option>
-                        <option value="waitForPosting" {{ request()->get('is_suppension') == 'waitForPosting' ? 'selected' : '' }}>Đang chờ đăng</option>
+                        <option value="1" {{ request()->get('is_suppension') == '1' ? 'selected' : '' }}>Đã dừng</option>
+                        <option value="2" {{ request()->get('is_suppension') == '2' ? 'selected' : '' }}>Đã đăng</option>
+                        <option value="3" {{ request()->get('is_suppension') == '3' ? 'selected' : '' }}>Đã hết hạn</option>
+                        <option value="4" {{ request()->get('is_suppension') == '4' ? 'selected' : '' }}>Đang chờ đăng</option>
                     </select>
                     <input type="text" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Search keyword...">
                     <button class="btn btn-primary">Search</button>
