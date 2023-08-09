@@ -21,11 +21,11 @@ class NewsRequest extends FormRequest
      */
     public function rules(): array
     {
-        if(request()->start_at){
+        if (request()->start_at) {
             request()->start_at = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', request()->start_at)->format('Y-m-d H:i');
         }
 
-        if(request()->end_at){
+        if (request()->end_at) {
             request()->end_at = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', request()->end_at)->format('Y-m-d H:i');
         }
 

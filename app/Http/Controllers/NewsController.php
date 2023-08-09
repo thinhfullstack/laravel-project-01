@@ -29,15 +29,21 @@ class NewsController extends Controller
                         $query->isSuppension();
                         break;
                     case '2':
-                        $query->where('start_at', '>', now());
-                        $query->where('end_at', '>', now());
+                        $query->isOtherSuppension()
+                              ->where(function ($subQuery) {
+                                  $subQuery->where('start_at', '>', now())
+                                           ->orWhereNull('start_at');
+                              });
                         break;
                     case '3':
                         $query->where('end_at', '<', now());
                         break;
                     case '4':
-                        $query->where('start_at', '<=', now());
-                        $query->where('end_at', '>', now());
+                        $query->isOtherSuppension()
+                              ->where(function ($subQuery) {
+                                  $subQuery->where('start_at', '<', now())
+                                           ->orWhereNull('start_at');
+                              });
                         break;
                 }
             });

@@ -20,4 +20,9 @@ class News extends Model
     {
         return $query->where('is_suppension', 1);
     }
+
+    public function scopeIsOtherSuppension($query)
+    {
+        return $query->where('is_suppension', '<>', 1);
+    }
 }
