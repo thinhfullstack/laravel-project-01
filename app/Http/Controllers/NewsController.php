@@ -17,11 +17,43 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $inputs = $request->all();
+        $query = $this->newsModel->query();
+
+        if (!empty($inputs['is_suppension'])) {
+            $query->where(function($query) use ($inputs) {
+                switch ($inputs['is_suppension']) {
+                    case 'stop':
+                        $query->where('is_suppension', 1);
+                        break;
+                    case 'post':
+                        $query->where('start_at', '<=', now());
+                        break;
+                    case 'expired':
+                        $query->where('end_at', '<', now());
+                        break;
+                    case 'waitForPosting':
+                        $query->where('start_at', '>', now());
+                        break;
+                }
+            });
+        }
+        
+
+        if (!empty($inputs['keyword'])) {
+            $query->where(function($query) use ($inputs) {
+                $query->orWhere('name', 'like', '%' . $inputs['keyword'] . '%');
+            });
+        }
+
+        $newsPaginate = $query->paginate(10);
+
         $news = $this->newsModel->all();
 
         return view('layouts.news.index', [
+            'newsPaginate' => $newsPaginate,
             'newsList' => $news,
             'title' => 'News List',
         ]);

@@ -10,6 +10,19 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="form-search">
+                <form action="{{ route('news.index') }}" method="GET" class="d-flex">
+                    <select class="form-select" aria-label="Default select example" name="is_suppension">
+                        <option selected disabled>Status News</option>
+                        <option value="stop" {{ request()->get('is_suppension') == 'stop' ? 'selected' : '' }}>Đã dừng</option>
+                        <option value="post" {{ request()->get('is_suppension') == 'post' ? 'selected' : '' }}>Đã đăng</option>
+                        <option value="expired" {{ request()->get('is_suppension') == 'expired' ? 'selected' : '' }}>Đã hết hạn</option>
+                        <option value="waitForPosting" {{ request()->get('is_suppension') == 'waitForPosting' ? 'selected' : '' }}>Đang chờ đăng</option>
+                    </select>
+                    <input type="text" name="keyword" value="{{ request()->get('keyword') }}" placeholder="Search keyword...">
+                    <button class="btn btn-primary">Search</button>
+                </form>
+            </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 overflow-scroll">
                     <table class="table">
@@ -29,7 +42,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($newsList as $news)
+                            @foreach ($newsPaginate->items() as $news)
                                 <tr>
                                     <th scope="row">{{ $news->id }}</th>
                                     <td>{{ $news->name }}</td>
@@ -62,6 +75,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="mt-3">
+                {{ $newsPaginate->appends(request()->query())->links() }}
             </div>
         </div>
     </div>
