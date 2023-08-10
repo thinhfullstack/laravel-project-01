@@ -23,6 +23,20 @@
                         {{ __('User Management') }}
                     </x-nav-link>
                 </div>
+
+                <!-- News Management -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.index')">
+                        {{ __('News Management') }}
+                    </x-nav-link>
+                </div>
+
+                <!-- News Management -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('course.index')" :active="request()->routeIs('course.index')">
+                        {{ __('Course Management') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
